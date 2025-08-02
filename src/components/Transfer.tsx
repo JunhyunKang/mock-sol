@@ -12,7 +12,11 @@ import { ArrowLeft, User, CreditCard, Send, Check } from 'lucide-react'
 import { useTransfer } from '../hooks/useTransfer'
 import { BANKS, QUICK_AMOUNTS } from '../types/bank'
 
-export default function BankTransferApp() {
+interface TransferProps {
+  onNavigateBack?: () => void
+}
+
+export default function BankTransferApp({ onNavigateBack }: TransferProps) {
   const {
     step,
     transferData,
@@ -61,7 +65,7 @@ export default function BankTransferApp() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={handlePrevious}
+            onClick={onNavigateBack ?? handlePrevious}
             className="mr-3"
           >
             <ArrowLeft className="h-5 w-5" />

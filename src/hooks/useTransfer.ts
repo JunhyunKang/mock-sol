@@ -66,6 +66,27 @@ export const useTransfer = () => {
     updateTransferData({ amount })
   }
 
+  // 미리 채워진 은행 정보로 이동
+  // const setPrefilledTransfer = (bankData: TransferData) => {
+  //   updateTransferData({
+  //     bankName: bankData.bankName,
+  //     accountNumber: bankData.accountNumber,
+  //     recipientName: bankData.recipientName,
+  //   })
+  //   setStep(2) // 바로 2단계로
+  // }
+
+  // useEffect(() => {
+  //   // 백엔드에서 최근 송금 내역 가져오기
+  //   const recentTransfer = {
+  //     bankName: "카카오뱅크",
+  //     accountNumber: "3333-01-1234567",
+  //     recipientName: "홍길동"
+  //   }
+  //
+  //   setPrefilledTransfer(recentTransfer)
+  // }, [])
+
   return {
     // State
     step,
@@ -80,6 +101,7 @@ export const useTransfer = () => {
     handleTransfer,
     setShowConfirm,
     setQuickAmount,
+    // setPrefilledTransfer,
 
     // Validators
     canProceedStep1,
