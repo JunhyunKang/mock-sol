@@ -11,16 +11,19 @@ import {
   CreditCard,
   PiggyBank,
   TrendingUp,
+  DollarSign,
 } from 'lucide-react'
 
 interface HomeProps {
   onNavigateToTransfer: () => void
   onNavigateToHistory: () => void
+  onNavigateToExchange: () => void
 }
 
 export default function BankHome({
   onNavigateToTransfer,
   onNavigateToHistory,
+  onNavigateToExchange,
 }: HomeProps) {
   const [showBalance, setShowBalance] = useState(true)
   const balance = 1450000
@@ -45,17 +48,24 @@ export default function BankHome({
       color: 'bg-green-100 text-green-600',
     },
     {
+      icon: <DollarSign className="h-6 w-6 lg:h-7 lg:w-7" />,
+      title: '환전',
+      description: '외화환전',
+      onClick: onNavigateToExchange,
+      color: 'bg-yellow-100 text-yellow-600',
+    },
+    {
       icon: <CreditCard className="h-6 w-6 lg:h-7 lg:w-7" />,
       title: '카드관리',
       description: '한도설정',
-      onClick: () => {},
+      onClick: () => { },
       color: 'bg-purple-100 text-purple-600',
     },
     {
       icon: <PiggyBank className="h-6 w-6 lg:h-7 lg:w-7" />,
       title: '적금',
       description: '상품가입',
-      onClick: () => {},
+      onClick: () => { },
       color: 'bg-orange-100 text-orange-600',
     },
   ]
@@ -150,7 +160,7 @@ export default function BankHome({
             <CardTitle className="text-lg lg:text-xl">빠른 서비스</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
               {quickMenus.map((menu, index) => (
                 <Button
                   key={index}
@@ -198,11 +208,10 @@ export default function BankHome({
               >
                 <div className="flex items-center space-x-3">
                   <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12 ${
-                      transaction.amount > 0
-                        ? 'bg-blue-100 text-blue-600'
-                        : 'bg-red-100 text-red-600'
-                    }`}
+                    className={`flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12 ${transaction.amount > 0
+                      ? 'bg-blue-100 text-blue-600'
+                      : 'bg-red-100 text-red-600'
+                      }`}
                   >
                     {transaction.amount > 0 ? (
                       <TrendingUp className="h-5 w-5 lg:h-6 lg:w-6" />
@@ -220,9 +229,8 @@ export default function BankHome({
                   </div>
                 </div>
                 <p
-                  className={`text-sm font-semibold lg:text-base ${
-                    transaction.amount > 0 ? 'text-blue-600' : 'text-red-600'
-                  }`}
+                  className={`text-sm font-semibold lg:text-base ${transaction.amount > 0 ? 'text-blue-600' : 'text-red-600'
+                    }`}
                 >
                   {transaction.amount > 0 ? '+' : ''}
                   {formatAmount(Math.abs(transaction.amount))}원
