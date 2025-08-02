@@ -3,8 +3,9 @@ import BankHome from './components/BankHome'
 import Transfer from './components/Transfer'
 import TransactionHistory from './components/TransactionHistory'
 import Exchange from './components/Exchange'
+import CardApplication from './components/CardApplication'
 
-type Screen = 'home' | 'transfer' | 'history' | 'exchange'
+type Screen = 'home' | 'transfer' | 'history' | 'exchange' | 'cardApplication'
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home')
@@ -13,6 +14,7 @@ function App() {
   const navigateToTransfer = () => setCurrentScreen('transfer')
   const navigateToHistory = () => setCurrentScreen('history')
   const navigateToExchange = () => setCurrentScreen('exchange')
+  const navigateToCardApplication = () => setCurrentScreen('cardApplication')
 
   switch (currentScreen) {
     case 'home':
@@ -21,6 +23,7 @@ function App() {
           onNavigateToTransfer={navigateToTransfer}
           onNavigateToHistory={navigateToHistory}
           onNavigateToExchange={navigateToExchange}
+          onNavigateToCardApplication={navigateToCardApplication}
         />
       )
     case 'transfer':
@@ -29,12 +32,15 @@ function App() {
       return <TransactionHistory onNavigateBack={navigateToHome} />
     case 'exchange':
       return <Exchange onNavigateBack={navigateToHome} />
+    case 'cardApplication':
+      return <CardApplication onNavigateBack={navigateToHome} />
     default:
       return (
         <BankHome
           onNavigateToTransfer={navigateToTransfer}
           onNavigateToHistory={navigateToHistory}
           onNavigateToExchange={navigateToExchange}
+          onNavigateToCardApplication={navigateToCardApplication}
         />
       )
   }
