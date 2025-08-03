@@ -63,24 +63,11 @@ export const useTransaction = () => {
     return `${month}/${day}`
   }
 
-  const getTransactionStats = () => {
-    const deposits = filteredTransactions
-      .filter(t => t.type === 'deposit')
-      .reduce((sum, t) => sum + t.amount, 0)
-
-    const withdrawals = filteredTransactions
-      .filter(t => t.type === 'withdrawal')
-      .reduce((sum, t) => sum + t.amount, 0)
-
-    return { deposits, withdrawals, total: deposits - withdrawals }
-  }
-
   return {
     transactions: filteredTransactions,
     filter,
     updateFilter,
     formatAmount,
     formatDate,
-    getTransactionStats,
   }
 }
