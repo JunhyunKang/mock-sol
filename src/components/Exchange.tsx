@@ -209,7 +209,7 @@ export default function Exchange({ onNavigateBack }: ExchangeProps) {
                 <select
                   value={fromCurrency}
                   onChange={e => setFromCurrency(e.target.value)}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none"
                 >
                   <option value="KRW">KRW (원)</option>
                   <option value="USD">USD (달러)</option>
@@ -224,7 +224,7 @@ export default function Exchange({ onNavigateBack }: ExchangeProps) {
                 <select
                   value={toCurrency}
                   onChange={e => setToCurrency(e.target.value)}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none"
                 >
                   <option value="USD">USD (달러)</option>
                   <option value="EUR">EUR (유로)</option>
