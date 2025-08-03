@@ -3,7 +3,7 @@ import { MOCK_TRANSACTIONS } from '../types/transaction'
 import type { TransactionFilter } from '../types/transaction'
 
 const today = new Date().toISOString().split('T')[0]
-const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+const oneMonthAgo = new Date(Date.now() - 1 * 12 * 30 * 24 * 60 * 60 * 1000)
   .toISOString()
   .split('T')[0]
 

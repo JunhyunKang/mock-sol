@@ -38,7 +38,7 @@ export default function TransactionHistory({
   const stats = getTransactionStats()
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div>
       {/* 헤더 */}
       <div className="border-b bg-white shadow-sm">
         <div className="flex items-center justify-between p-4">

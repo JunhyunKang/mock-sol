@@ -3,6 +3,7 @@ import BankHome from './components/BankHome'
 import Transfer from './components/Transfer'
 import TransactionHistory from './components/TransactionHistory'
 import Exchange from './components/Exchange'
+import Layout from '@/components/Layout.tsx'
 
 type Screen = 'home' | 'transfer' | 'history' | 'exchange'
 
@@ -13,31 +14,33 @@ function App() {
   const navigateToTransfer = () => setCurrentScreen('transfer')
   const navigateToHistory = () => setCurrentScreen('history')
   const navigateToExchange = () => setCurrentScreen('exchange')
-
-  switch (currentScreen) {
-    case 'home':
-      return (
-        <BankHome
-          onNavigateToTransfer={navigateToTransfer}
-          onNavigateToHistory={navigateToHistory}
-          onNavigateToExchange={navigateToExchange}
-        />
-      )
-    case 'transfer':
-      return <Transfer onNavigateBack={navigateToHome} />
-    case 'history':
-      return <TransactionHistory onNavigateBack={navigateToHome} />
-    case 'exchange':
-      return <Exchange onNavigateBack={navigateToHome} />
-    default:
-      return (
-        <BankHome
-          onNavigateToTransfer={navigateToTransfer}
-          onNavigateToHistory={navigateToHistory}
-          onNavigateToExchange={navigateToExchange}
-        />
-      )
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case 'home':
+        return (
+          <BankHome
+            onNavigateToTransfer={navigateToTransfer}
+            onNavigateToHistory={navigateToHistory}
+            onNavigateToExchange={navigateToExchange}
+          />
+        )
+      case 'transfer':
+        return <Transfer onNavigateBack={navigateToHome} />
+      case 'history':
+        return <TransactionHistory onNavigateBack={navigateToHome} />
+      case 'exchange':
+        return <Exchange onNavigateBack={navigateToHome} />
+      default:
+        return (
+          <BankHome
+            onNavigateToTransfer={navigateToTransfer}
+            onNavigateToHistory={navigateToHistory}
+            onNavigateToExchange={navigateToExchange}
+          />
+        )
+    }
   }
+  return <Layout>{renderScreen()}</Layout>
 }
 
 export default App
