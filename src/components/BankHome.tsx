@@ -16,12 +16,14 @@ interface HomeProps {
   onNavigateToTransfer: () => void
   onNavigateToHistory: () => void
   onNavigateToExchange: () => void
+  onNavigateToCardApplication: () => void
 }
 
 export default function BankHome({
   onNavigateToTransfer,
   onNavigateToHistory,
   onNavigateToExchange,
+  onNavigateToCardApplication,
 }: HomeProps) {
   const [showBalance] = useState(true)
   const balance = 1450000
@@ -58,6 +60,13 @@ export default function BankHome({
       description: '한도설정',
       onClick: () => {},
       color: 'bg-purple-100 text-purple-600',
+    },
+    {
+      icon: <CreditCard className="h-6 w-6 lg:h-7 lg:w-7" />,
+      title: '체크카드',
+      description: '신청하기',
+      onClick: onNavigateToCardApplication,
+      color: 'bg-indigo-100 text-indigo-600',
     },
     {
       icon: <PiggyBank className="h-6 w-6 lg:h-7 lg:w-7" />,
@@ -143,7 +152,7 @@ export default function BankHome({
             <CardTitle className="text-lg lg:text-xl">빠른 서비스</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+            <div className="grid grid-cols-3 gap-4">
               {quickMenus.map((menu, index) => (
                 <Button
                   key={index}
