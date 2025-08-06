@@ -15,6 +15,8 @@ function App() {
   const navigateToTransfer = () => setCurrentScreen('transfer')
   const navigateToHistory = () => setCurrentScreen('history')
   const navigateToExchange = () => setCurrentScreen('exchange')
+  const navigateToCardApplication = () => setCurrentScreen('cardApplication')
+
   const renderScreen = () => {
     switch (currentScreen) {
       case 'home':
@@ -24,7 +26,6 @@ function App() {
             onNavigateToHistory={navigateToHistory}
             onNavigateToExchange={navigateToExchange}
             onNavigateToCardApplication={navigateToCardApplication}
-
           />
         )
       case 'transfer':
@@ -42,7 +43,6 @@ function App() {
             onNavigateToHistory={navigateToHistory}
             onNavigateToExchange={navigateToExchange}
             onNavigateToCardApplication={navigateToCardApplication}
-
           />
         )
     }
