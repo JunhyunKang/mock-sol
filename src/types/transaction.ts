@@ -29,7 +29,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     description: '홍길동',
     bank: '카카오뱅크',
     accountNumber: '3333-01-1234567',
-    date: '2024-08-03',
+    date: '2025-08-03',
     time: '14:30',
   },
   {
@@ -38,7 +38,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     amount: 300000,
     balance: 1500000,
     description: '월급',
-    date: '2024-08-01',
+    date: '2025-08-01',
     time: '09:00',
   },
   {
@@ -49,7 +49,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     description: '김철수',
     bank: '신한은행',
     accountNumber: '110-123-456789',
-    date: '2024-07-30',
+    date: '2025-07-30',
     time: '16:45',
   },
   {
@@ -58,7 +58,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     amount: 100000,
     balance: 1225000,
     description: '용돈',
-    date: '2024-07-28',
+    date: '2025-07-28',
     time: '12:00',
   },
   {
@@ -67,7 +67,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     amount: 15000,
     balance: 1125000,
     description: '스타벅스',
-    date: '2024-07-25',
+    date: '2025-07-25',
     time: '10:30',
   },
   {
@@ -78,7 +78,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     description: '이영희',
     bank: '우리은행',
     accountNumber: '1002-123-456789',
-    date: '2024-07-23',
+    date: '2025-07-23',
     time: '19:20',
   },
   {
@@ -87,7 +87,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     amount: 200000,
     balance: 1220000,
     description: '부모님용돈',
-    date: '2024-07-20',
+    date: '2025-07-20',
     time: '08:15',
   },
   {
@@ -96,7 +96,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     amount: 35000,
     balance: 1020000,
     description: '마트결제',
-    date: '2024-07-18',
+    date: '2025-07-18',
     time: '17:50',
   },
   {
@@ -105,7 +105,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     amount: 500000,
     balance: 1055000,
     description: '보너스',
-    date: '2024-07-15',
+    date: '2025-07-15',
     time: '11:30',
   },
   {
@@ -116,7 +116,7 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     description: '박민수',
     bank: '하나은행',
     accountNumber: '123-456789-001',
-    date: '2024-07-10',
+    date: '2025-07-10',
     time: '13:45',
   },
 ]

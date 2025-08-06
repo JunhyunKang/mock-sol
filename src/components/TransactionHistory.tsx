@@ -25,20 +25,13 @@ interface TransactionHistoryProps {
 export default function TransactionHistory({
   onNavigateBack,
 }: TransactionHistoryProps) {
-  const {
-    transactions,
-    filter,
-    updateFilter,
-    formatAmount,
-    formatDate,
-    getTransactionStats,
-  } = useTransaction()
+  const { transactions, filter, updateFilter, formatAmount, formatDate } =
+    useTransaction()
 
   const [showFilter, setShowFilter] = useState(false)
-  const stats = getTransactionStats()
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div>
       {/* 헤더 */}
       <div className="border-b bg-white shadow-sm">
         <div className="flex items-center justify-between p-4">
@@ -62,37 +55,6 @@ export default function TransactionHistory({
             <Filter className="mr-1 h-4 w-4" />
             필터
           </Button>
-        </div>
-
-        {/* 통계 요약 */}
-        <div className="px-4 pb-4">
-          <div className="rounded-lg bg-blue-50 p-4 lg:p-5">
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div>
-                <p className="text-xs text-gray-600 lg:text-sm">입금</p>
-                <p className="text-sm font-semibold text-blue-600 lg:text-base">
-                  +{formatAmount(stats.deposits)}원
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-600 lg:text-sm">출금</p>
-                <p className="text-sm font-semibold text-red-600 lg:text-base">
-                  -{formatAmount(stats.withdrawals)}원
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-600 lg:text-sm">합계</p>
-                <p
-                  className={`text-sm font-semibold lg:text-base ${
-                    stats.total >= 0 ? 'text-blue-600' : 'text-red-600'
-                  }`}
-                >
-                  {stats.total >= 0 ? '+' : ''}
-                  {formatAmount(stats.total)}원
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 

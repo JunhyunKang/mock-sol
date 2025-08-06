@@ -3,7 +3,7 @@ import { MOCK_TRANSACTIONS } from '../types/transaction'
 import type { TransactionFilter } from '../types/transaction'
 
 const today = new Date().toISOString().split('T')[0]
-const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+const oneMonthAgo = new Date(Date.now() - 1 * 12 * 30 * 24 * 60 * 60 * 1000)
   .toISOString()
   .split('T')[0]
 
@@ -63,24 +63,11 @@ export const useTransaction = () => {
     return `${month}/${day}`
   }
 
-  const getTransactionStats = () => {
-    const deposits = filteredTransactions
-      .filter(t => t.type === 'deposit')
-      .reduce((sum, t) => sum + t.amount, 0)
-
-    const withdrawals = filteredTransactions
-      .filter(t => t.type === 'withdrawal')
-      .reduce((sum, t) => sum + t.amount, 0)
-
-    return { deposits, withdrawals, total: deposits - withdrawals }
-  }
-
   return {
     transactions: filteredTransactions,
     filter,
     updateFilter,
     formatAmount,
     formatDate,
-    getTransactionStats,
   }
 }

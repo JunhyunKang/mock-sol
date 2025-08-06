@@ -4,8 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Send,
   History,
-  Eye,
-  EyeOff,
   Bell,
   Settings,
   CreditCard,
@@ -27,7 +25,7 @@ export default function BankHome({
   onNavigateToExchange,
   onNavigateToCardApplication,
 }: HomeProps) {
-  const [showBalance, setShowBalance] = useState(true)
+  const [showBalance] = useState(true)
   const balance = 1450000
 
   const formatAmount = (amount: number) => {
@@ -60,7 +58,7 @@ export default function BankHome({
       icon: <CreditCard className="h-6 w-6 lg:h-7 lg:w-7" />,
       title: '카드관리',
       description: '한도설정',
-      onClick: () => { },
+      onClick: () => {},
       color: 'bg-purple-100 text-purple-600',
     },
     {
@@ -74,7 +72,7 @@ export default function BankHome({
       icon: <PiggyBank className="h-6 w-6 lg:h-7 lg:w-7" />,
       title: '적금',
       description: '상품가입',
-      onClick: () => { },
+      onClick: () => {},
       color: 'bg-orange-100 text-orange-600',
     },
   ]
@@ -104,17 +102,14 @@ export default function BankHome({
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div>
       {/* 헤더 */}
       <div className="bg-white shadow-sm">
         <div className="flex items-center justify-between p-4 lg:p-6">
           <div>
             <h1 className="text-xl font-bold text-gray-900 lg:text-2xl">
-              안녕하세요!
+              강준현
             </h1>
-            <p className="text-sm text-gray-600 lg:text-base">
-              오늘도 좋은 하루 되세요 ✨
-            </p>
           </div>
           <div className="flex space-x-2">
             <Button variant="ghost" size="sm">
@@ -141,18 +136,6 @@ export default function BankHome({
                   3333-01-1234567
                 </p>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowBalance(!showBalance)}
-                className="text-white hover:bg-blue-500"
-              >
-                {showBalance ? (
-                  <EyeOff className="h-5 w-5" />
-                ) : (
-                  <Eye className="h-5 w-5" />
-                )}
-              </Button>
             </div>
             <div className="mt-6">
               <p className="text-sm text-blue-100 lg:text-base">잔액</p>
@@ -217,10 +200,11 @@ export default function BankHome({
               >
                 <div className="flex items-center space-x-3">
                   <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12 ${transaction.amount > 0
-                      ? 'bg-blue-100 text-blue-600'
-                      : 'bg-red-100 text-red-600'
-                      }`}
+                    className={`flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12 ${
+                      transaction.amount > 0
+                        ? 'bg-blue-100 text-blue-600'
+                        : 'bg-red-100 text-red-600'
+                    }`}
                   >
                     {transaction.amount > 0 ? (
                       <TrendingUp className="h-5 w-5 lg:h-6 lg:w-6" />
@@ -238,8 +222,9 @@ export default function BankHome({
                   </div>
                 </div>
                 <p
-                  className={`text-sm font-semibold lg:text-base ${transaction.amount > 0 ? 'text-blue-600' : 'text-red-600'
-                    }`}
+                  className={`text-sm font-semibold lg:text-base ${
+                    transaction.amount > 0 ? 'text-blue-600' : 'text-red-600'
+                  }`}
                 >
                   {transaction.amount > 0 ? '+' : ''}
                   {formatAmount(Math.abs(transaction.amount))}원

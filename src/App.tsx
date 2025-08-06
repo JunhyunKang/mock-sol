@@ -4,6 +4,7 @@ import Transfer from './components/Transfer'
 import TransactionHistory from './components/TransactionHistory'
 import Exchange from './components/Exchange'
 import CardApplication from './components/CardApplication'
+import Layout from '@/components/Layout.tsx'
 
 type Screen = 'home' | 'transfer' | 'history' | 'exchange' | 'cardApplication'
 
@@ -16,34 +17,37 @@ function App() {
   const navigateToExchange = () => setCurrentScreen('exchange')
   const navigateToCardApplication = () => setCurrentScreen('cardApplication')
 
-  switch (currentScreen) {
-    case 'home':
-      return (
-        <BankHome
-          onNavigateToTransfer={navigateToTransfer}
-          onNavigateToHistory={navigateToHistory}
-          onNavigateToExchange={navigateToExchange}
-          onNavigateToCardApplication={navigateToCardApplication}
-        />
-      )
-    case 'transfer':
-      return <Transfer onNavigateBack={navigateToHome} />
-    case 'history':
-      return <TransactionHistory onNavigateBack={navigateToHome} />
-    case 'exchange':
-      return <Exchange onNavigateBack={navigateToHome} />
-    case 'cardApplication':
-      return <CardApplication onNavigateBack={navigateToHome} />
-    default:
-      return (
-        <BankHome
-          onNavigateToTransfer={navigateToTransfer}
-          onNavigateToHistory={navigateToHistory}
-          onNavigateToExchange={navigateToExchange}
-          onNavigateToCardApplication={navigateToCardApplication}
-        />
-      )
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case 'home':
+        return (
+          <BankHome
+            onNavigateToTransfer={navigateToTransfer}
+            onNavigateToHistory={navigateToHistory}
+            onNavigateToExchange={navigateToExchange}
+            onNavigateToCardApplication={navigateToCardApplication}
+          />
+        )
+      case 'transfer':
+        return <Transfer onNavigateBack={navigateToHome} />
+      case 'history':
+        return <TransactionHistory onNavigateBack={navigateToHome} />
+      case 'exchange':
+        return <Exchange onNavigateBack={navigateToHome} />
+      case 'cardApplication':
+        return <CardApplication onNavigateBack={navigateToHome} />
+      default:
+        return (
+          <BankHome
+            onNavigateToTransfer={navigateToTransfer}
+            onNavigateToHistory={navigateToHistory}
+            onNavigateToExchange={navigateToExchange}
+            onNavigateToCardApplication={navigateToCardApplication}
+          />
+        )
+    }
   }
+  return <Layout>{renderScreen()}</Layout>
 }
 
 export default App

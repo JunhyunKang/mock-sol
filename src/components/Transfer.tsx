@@ -36,7 +36,7 @@ export default function BankTransferApp({ onNavigateBack }: TransferProps) {
   // 완료 화면
   if (isComplete) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-blue-50 to-white p-4">
+      <div>
         <Card className="mx-auto w-full max-w-sm text-center">
           <CardContent className="p-8">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
@@ -58,7 +58,7 @@ export default function BankTransferApp({ onNavigateBack }: TransferProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div>
       {/* 헤더 */}
       <div className="border-b bg-white shadow-sm">
         <div className="flex items-center p-4">
@@ -75,11 +75,18 @@ export default function BankTransferApp({ onNavigateBack }: TransferProps) {
 
         {/* 진행 단계 */}
         <div className="px-4 pb-4">
-          <div className="flex items-center space-x-2">
+          <div className="mb-2 flex justify-between text-xs text-gray-500 lg:text-sm">
+            <span className="text-center">받는분 정보</span>
+            <span className="text-center">송금 금액</span>
+            <span className="text-center">송금 확인</span>
+          </div>
+
+          {/* 숫자 버튼들을 텍스트 위치에 맞춤 */}
+          <div className="flex items-center justify-between">
             {[1, 2, 3].map(num => (
-              <div key={num} className="flex items-center">
+              <div key={num} className="flex flex-col items-center">
                 <div
-                  className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium ${
+                  className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors ${
                     step >= num
                       ? 'bg-blue-600 text-white'
                       : 'bg-gray-200 text-gray-500'
@@ -87,20 +94,8 @@ export default function BankTransferApp({ onNavigateBack }: TransferProps) {
                 >
                   {num}
                 </div>
-                {num < 3 && (
-                  <div
-                    className={`mx-2 h-1 w-12 ${
-                      step > num ? 'bg-blue-600' : 'bg-gray-200'
-                    }`}
-                  />
-                )}
               </div>
             ))}
-          </div>
-          <div className="mt-2 flex justify-between text-xs text-gray-500">
-            <span>받는분 정보</span>
-            <span>송금 금액</span>
-            <span>송금 확인</span>
           </div>
         </div>
       </div>
@@ -119,7 +114,7 @@ export default function BankTransferApp({ onNavigateBack }: TransferProps) {
               <div>
                 <Label htmlFor="bankName">은행</Label>
                 <select
-                  className="mt-1 w-full rounded-lg border p-3 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  className="mmt-1 w-full rounded-lg border bg-white p-3 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   value={transferData.bankName}
                   onChange={e =>
                     updateTransferData({ bankName: e.target.value })
