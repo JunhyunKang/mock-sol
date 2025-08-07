@@ -11,6 +11,7 @@ import {
   TrendingUp,
   DollarSign,
 } from 'lucide-react'
+import { useBankHome } from '../hooks/useBankHome'
 
 interface HomeProps {
   onNavigateToTransfer: () => void
@@ -26,11 +27,8 @@ export default function BankHome({
   onNavigateToCardApplication,
 }: HomeProps) {
   const [showBalance] = useState(true)
-  const balance = 1450000
-
-  const formatAmount = (amount: number) => {
-    return new Intl.NumberFormat('ko-KR').format(amount)
-  }
+  const { userInfo, recentTransactions, loading, formatAmount, formatDate } =
+    useBankHome()
 
   const quickMenus = [
     {
@@ -76,31 +74,21 @@ export default function BankHome({
       color: 'bg-orange-100 text-orange-600',
     },
   ]
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-lg">로딩 중...</div>
+      </div>
+    )
+  }
 
-  const recentTransactions = [
-    {
-      id: '1',
-      description: '홍길동',
-      amount: -50000,
-      date: '8/3',
-      type: 'transfer',
-    },
-    {
-      id: '2',
-      description: '월급',
-      amount: 300000,
-      date: '8/1',
-      type: 'deposit',
-    },
-    {
-      id: '3',
-      description: '김철수',
-      amount: -25000,
-      date: '7/30',
-      type: 'transfer',
-    },
-  ]
-
+  if (!userInfo) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-lg text-red-600">데이터를 불러올 수 없습니다.</div>
+      </div>
+    )
+  }
   return (
     <div>
       {/* 헤더 */}
@@ -108,7 +96,7 @@ export default function BankHome({
         <div className="flex items-center justify-between p-4 lg:p-6">
           <div>
             <h1 className="text-xl font-bold text-gray-900 lg:text-2xl">
-              강준현
+              {userInfo.name}
             </h1>
           </div>
           <div className="flex space-x-2">
@@ -130,17 +118,19 @@ export default function BankHome({
               <div>
                 <p className="text-sm text-blue-100 lg:text-base">내 계좌</p>
                 <p className="text-lg font-semibold lg:text-xl">
-                  Mock Sol Bank
+                  {userInfo.bank_name}
                 </p>
                 <p className="text-xs text-blue-100 lg:text-sm">
-                  3333-01-1234567
+                  {userInfo.account_number}
                 </p>
               </div>
             </div>
             <div className="mt-6">
               <p className="text-sm text-blue-100 lg:text-base">잔액</p>
               <p className="text-2xl font-bold lg:text-3xl">
-                {showBalance ? `${formatAmount(balance)}원` : '••••••••원'}
+                {showBalance
+                  ? `${formatAmount(userInfo.balance)}원`
+                  : '••••••••원'}
               </p>
             </div>
           </CardContent>
@@ -217,7 +207,7 @@ export default function BankHome({
                       {transaction.description}
                     </p>
                     <p className="text-xs text-gray-500 lg:text-sm">
-                      {transaction.date}
+                      {formatDate(transaction.date)}
                     </p>
                   </div>
                 </div>
