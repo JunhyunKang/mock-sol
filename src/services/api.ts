@@ -1,3 +1,5 @@
+import type {SearchRequest, SearchResponse} from "@/types/search.ts";
+
 const API_BASE_URL = 'http://localhost:8000/api'
 
 // API 호출 유틸리티 함수
@@ -65,12 +67,12 @@ export const userApi = {
 
 // 검색 API
 export const searchApi = {
-  search: (query: string, userId?: string) =>
-    apiCall('/search', {
-      method: 'POST',
-      body: JSON.stringify({
-        query,
-        user_id: userId ?? 'default_user',
+  search: (query: string, userId?: string): Promise<SearchResponse> =>
+      apiCall('/search', {
+        method: 'POST',
+        body: JSON.stringify({
+          query,
+          user_id: userId || 'default_user',
+        } as SearchRequest),
       }),
-    }),
 }

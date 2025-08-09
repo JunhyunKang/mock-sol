@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import {
   Send,
   History,
@@ -10,6 +17,7 @@ import {
   PiggyBank,
   TrendingUp,
   DollarSign,
+  Search,
 } from 'lucide-react'
 import { useBankHome } from '../hooks/useBankHome'
 
@@ -27,7 +35,12 @@ export default function BankHome({
   onNavigateToCardApplication,
 }: HomeProps) {
   const [showBalance] = useState(true)
-  const { userInfo, recentTransactions, loading, formatAmount, formatDate } =
+  const { userInfo, recentTransactions, loading, formatAmount, formatDate,     showSearch,
+    searchQuery,
+    searchLoading,
+    setShowSearch,
+    setSearchQuery,
+    handleSearch } =
     useBankHome()
 
   const quickMenus = [
@@ -224,6 +237,65 @@ export default function BankHome({
           </CardContent>
         </Card>
       </div>
+      {/* 플로팅 검색 버튼 */}
+      <Button
+          onClick={() => setShowSearch(true)}
+          className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-blue-600 p-0 shadow-lg hover:bg-blue-700"
+          size="lg"
+      >
+        <Search className="h-6 w-6" />
+      </Button>
+
+      {/* 검색 모달 */}
+      <Dialog open={showSearch} onOpenChange={setShowSearch}>
+        <DialogContent className="mx-auto w-[90%] max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center">
+              <Search className="mr-2 h-5 w-5" />
+              자연어 검색
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Input
+                  placeholder="예: 김네모 10만원 보내줘"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                  className="text-base"
+                  autoFocus
+              />
+            </div>
+
+            <div className="text-sm text-gray-600">
+              <p className="mb-2 font-medium">검색 예시:</p>
+              <ul className="space-y-1">
+                <li>• "홍길동에게 5만원 보내줘"</li>
+                <li>• "은퇴 후 가입하는 연금"</li>
+                <li>• "최근 5개월 출금 내역"</li>
+              </ul>
+            </div>
+
+            <div className="flex space-x-3 pt-4">
+              <Button
+                  variant="outline"
+                  onClick={() => setShowSearch(false)}
+                  className="flex-1"
+                  disabled={searchLoading}
+              >
+                취소
+              </Button>
+              <Button
+                  onClick={handleSearch}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700"
+                  disabled={!searchQuery.trim() || searchLoading}
+              >
+                {searchLoading ? '검색 중...' : '검색'}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
