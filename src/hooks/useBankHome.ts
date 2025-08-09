@@ -17,7 +17,20 @@ interface RecentTransaction {
   date: string
 }
 
-export const useBankHome = () => {
+// 네비게이션 콜백들을 받는 인터페이스
+interface NavigationCallbacks {
+  onNavigateToTransfer: (prefilledData?: any) => void
+  onNavigateToHistory: (filterData?: any) => void
+  onNavigateToExchange: () => void
+  onNavigateToCardApplication: () => void
+  onNavigateToLoan: () => void
+  onNavigateToExchangeCalculator: () => void
+  onNavigateToExchangeAlerts: () => void
+  onNavigateToLoanDocuments: () => void
+  onNavigateToLoanCalculator: () => void
+}
+
+export const useBankHome = (navigationCallbacks: NavigationCallbacks) => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
   const [loading, setLoading] = useState(true)
   const [showSearch, setShowSearch] = useState(false)
@@ -71,17 +84,54 @@ export const useBankHome = () => {
       setSearchLoading(true)
       const result: SearchResponse = await searchApi.search(searchQuery)
       console.log('검색 결과:', result)
-
+      console.log('🔍 navigationCallbacks:', result)
       // 검색 결과에 따른 액션 처리
       if (result.action_type === 'transfer') {
-        // 송금 화면으로 이동 로직
-        alert(`송금 액션: ${result.message}`)
+        // 송금 화면으로 이동
+        const prefilledData = result.screen_data
+        navigationCallbacks.onNavigateToTransfer(prefilledData)
+
       } else if (result.action_type === 'search') {
-        // 검색 결과 화면으로 이동 로직
-        alert(`검색 액션: ${result.message}`)
+        // 검색 결과 화면으로 이동
+        const filterData = result.screen_data
+        navigationCallbacks.onNavigateToHistory(filterData)
+
       } else if (result.action_type === 'menu') {
-        // 메뉴 화면으로 이동 로직
-        alert(`메뉴 액션: ${result.message}`)
+        // 메뉴 화면으로 이동 - URL 기반으로 네비게이션
+        const redirectUrl = result.redirect_url
+
+        switch (redirectUrl) {
+          case '/exchange':
+            navigationCallbacks.onNavigateToExchange()
+            break
+          case '/exchangeCalculator':
+            navigationCallbacks.onNavigateToExchangeCalculator()
+            break
+          case '/exchangeAlerts':
+            navigationCallbacks.onNavigateToExchangeAlerts()
+            break
+          case '/cardApplication':
+            navigationCallbacks.onNavigateToCardApplication()
+            break
+          case '/loan':
+            navigationCallbacks.onNavigateToLoan()
+            break
+          case '/loanDocuments':
+            navigationCallbacks.onNavigateToLoanDocuments()
+            break
+          case '/loanCalculator':
+            navigationCallbacks.onNavigateToLoanCalculator()
+            break
+          case '/history':
+            navigationCallbacks.onNavigateToHistory()
+            break
+          case '/transfer':
+            navigationCallbacks.onNavigateToTransfer()
+            break
+          default:
+            alert(`메뉴 이동: ${result.message || '해당 메뉴로 이동합니다.'}`)
+        }
+
       } else {
         alert(result.message || '검색 결과가 없습니다.')
       }
@@ -89,6 +139,7 @@ export const useBankHome = () => {
       // 검색 후 초기화
       setSearchQuery('')
       setShowSearch(false)
+
     } catch (error) {
       console.error('검색 실패:', error)
       alert('검색 중 오류가 발생했습니다.')
